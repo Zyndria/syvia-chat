@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8" />
+  <title>SYVia Chat</title>
+  <script src="https://cdn.botframework.com/botframework-webchat/latest/webchat.js"></script>
+  <style>
+    html,body{height:100%;margin:0}
+    #webchat{height:100%;width:100%}
+  </style>
+</head>
+<body>
+  <div id="webchat">Laddar SYVia …</div>
+
+  <script>
+    // ↓↓↓ ERSÄTT HELA URL:EN ↓↓↓
+    const directLineTokenUrl = "https://default911074c268074cfb9b4e2d75f8d5a1.2d.environment.api.powerplatform.com/copilotstudio/dataverse-backed/authenticated/bots/cr995_SYVia/conversations?api-version=2022-03-01-preview";
+
+    fetch(directLineTokenUrl, { method: "POST" })
+      .then(r => r.json())
+      .then(t => window.WebChat.renderWebChat(
+        {
+          directLine: window.WebChat.createDirectLine({ token: t.token }),
+          locale: "sv-SE",
+          userID: "itslearning-user"
+        },
+        document.getElementById("webchat")
+      ))
+      .catch(e => document.getElementById("webchat").innerText =
+               "Kunde inte ladda chatten");
+  </script>
+</body>
+</html>
