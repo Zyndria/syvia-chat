@@ -12,22 +12,17 @@
 <body>
   <div id="webchat">Laddar SYVia …</div>
 
-  <script>
-    // ↓↓↓ ERSÄTT HELA URL:EN ↓↓↓
-    const directLineTokenUrl = "https://default911074c268074cfb9b4e2d75f8d5a1.2d.environment.api.powerplatform.com/copilotstudio/dataverse-backed/authenticated/bots/cr995_SYVia/conversations?api-version=2022-03-01-preview";
+<script>
+  const directLineSecret = "5xL1mbyGMZzEjtso6OI8NhtC2gfCNm5EHQql6nC6tiV6aF0SAamCJQQJ99BDAC5RqLJAArohAAABAZBS2ugb.7Ebo59WD3SXETUy8qaBsGoya2lBgsU7sAINfe1mSqHNX3oQoJeujJQQJ99BDAC5RqLJAArohAAABAZBS3oFy";
 
-    fetch(directLineTokenUrl, { method: "POST" })
-      .then(r => r.json())
-      .then(t => window.WebChat.renderWebChat(
-        {
-          directLine: window.WebChat.createDirectLine({ token: t.token }),
-          locale: "sv-SE",
-          userID: "itslearning-user"
-        },
-        document.getElementById("webchat")
-      ))
-      .catch(e => document.getElementById("webchat").innerText =
-               "Kunde inte ladda chatten");
-  </script>
+  window.WebChat.renderWebChat(
+    {
+      directLine: window.WebChat.createDirectLine({ secret: directLineSecret }),
+      locale: "sv-SE",
+      userID: "itslearning-user"
+    },
+    document.getElementById("webchat")
+  );
+</script>
 </body>
 </html>
