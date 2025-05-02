@@ -32,10 +32,10 @@
   
 <script>
   // 1) klistra in hela connection‑stringen här
-  const tokenEndpoint = "https://default911074c268074cfb9b4e2d75f8d5a1.2d.environment.api.powerplatform.com/copilotstudio/v3/directline/token?authType=Anonymous";
+  const tokenEndpoint = "https://default911074c268074cfb9b4e2d75f8d5a1.2d.environment.api.powerplatform.com/v3/directline/token?authType=Anonymous";
 
   // 2) samma men klipp av efter /v3/directline
-  const directLineDomain = "https://default911074c268074cfb9b4e2d75f8d5a1.2d.environment.api.powerplatform.com/copilotstudio/v3/directline";
+  const directLineDomain = "https://default911074c268074cfb9b4e2d75f8d5a1.2d.environment.api.powerplatform.com/v3/directline";
 
   // hämta engångs‑token och starta chatten
   fetch(tokenEndpoint, { method: "POST" })
