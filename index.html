@@ -3,6 +3,23 @@
 <head>
   <meta charset="utf-8" />
   <title>SYVia Chat</title>
+
+ <style>
+    html, body {                 /* låt hela sidan bli 100 % hög */
+      height: 100%;
+      margin: 0;
+    }
+
+    #webchat {                   /* själva chat‑containern */
+      height: 100%;              /* fyll höjden i iframen */
+      width: 100%;               /* fyll bredden */
+      box-sizing: border-box;    /* säkerställ att padding räknas rätt */
+      max-width: 800px;          /* frivilligt: begränsa maxbredd på desktop */
+      margin: 0 auto;            /* centrerar om du har max‑bredd */
+    }
+  </style>
+
+  
   <script src="https://cdn.botframework.com/botframework-webchat/latest/webchat.js"></script>
   <style>
     html,body{height:100%;margin:0}
@@ -12,17 +29,38 @@
 <body>
   <div id="webchat">Laddar SYVia …</div>
 
+  
 <script>
-  const directLineSecret = "5xL1mbyGMZzEjtso6OI8NhtC2gfCNm5EHQql6nC6tiV6aF0SAamCJQQJ99BDAC5RqLJAArohAAABAZBS2ugb.7Ebo59WD3SXETUy8qaBsGoya2lBgsU7sAINfe1mSqHNX3oQoJeujJQQJ99BDAC5RqLJAArohAAABAZBS3oFy";
+  // 1) klistra in hela connection‑stringen här
+  const tokenEndpoint = "https://default911074c268074cfb9b4e2d75f8d5a1.2d.environment.api.powerplatform.com/copilotstudio/v3/directline/token?authType=Anonymous";
 
-  window.WebChat.renderWebChat(
-    {
-      directLine: window.WebChat.createDirectLine({ secret: directLineSecret }),
-      locale: "sv-SE",
-      userID: "itslearning-user"
-    },
-    document.getElementById("webchat")
-  );
+  // 2) samma men klipp av efter /v3/directline
+  const directLineDomain = "https://default911074c268074cfb9b4e2d75f8d5a1.2d.environment.api.powerplatform.com/copilotstudio/v3/directline";
+
+  // hämta engångs‑token och starta chatten
+  fetch(tokenEndpoint, { method: "POST" })
+    .then(r => r.json())
+    .then(t => {
+      window.WebChat.renderWebChat(
+        {
+          directLine: window.WebChat.createDirectLine({
+            token: t.token,
+            domain: directLineDomain
+          }),
+          locale: "sv-SE",
+          userID: "itslearning-user"
+        },
+        document.getElementById("webchat")
+      );
+    })
+    .catch(e => {
+      document.getElementById("webchat").innerText =
+        "Kunde inte ansluta (" + e.message + ")";
+      console.error(e);
+    });
 </script>
+
+
+  
 </body>
 </html>
